@@ -13,9 +13,9 @@ const HomePage = () => {
         }}
       />
       <div className="relative z-10 text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome to Our App</h1>
-        <p className="text-xl text-gray-700 mb-8">Discover amazing features and boost your productivity</p>
-        <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
+        <h1 className="text-4xl font-bold text-black mb-4">Welcome to my Expense Analyzer website</h1>
+        <p className="text-xl text-gray-700 mb-8">Let's dive into your wallet !</p>
+        <button className="px-6 py-3 bg-yellow-200 text-black font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-300 ease-in-out">
           Get Started
         </button>
       </div>
