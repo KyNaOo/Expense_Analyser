@@ -5,6 +5,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 interface FormData {
   income: string;
   currency: string;
+  age:string;
   vitals: string;
   hobbies: string;
   taxes: string;
@@ -19,6 +20,7 @@ const SimpleForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     income: '',
     currency: '',
+    age:'',
     vitals: '',
     hobbies: '',
     taxes: '',
@@ -44,6 +46,7 @@ const SimpleForm: React.FC = () => {
     setFormData({
       income: '',
       currency: '',
+      age:'',
       vitals: '',
       hobbies: '',
       taxes: '',
@@ -73,6 +76,17 @@ const SimpleForm: React.FC = () => {
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
+          <label htmlFor="age" className="py-2 block text-gray-700 text-sm font-bold mb-2">Age</label>
+  <input
+    type="number"
+    id="age"
+    name="age"
+    value={formData.age}
+    onChange={handleChange}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    required
+  />
+
       </div>
       <div className="mb-6">
         <label htmlFor="currency" className="block text-gray-700 text-sm font-bold mb-2">Currency</label>
@@ -183,7 +197,7 @@ const SimpleForm: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          {currentStep === 1 ? "Income Information" : "Expenses"}
+          {currentStep === 1 ? "Information about you :)" : "Expenses"}
         </h2>
         {currentStep === 1 ? renderStep1() : renderStep2()}
       </form>
