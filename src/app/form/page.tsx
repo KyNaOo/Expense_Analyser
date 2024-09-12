@@ -1,56 +1,56 @@
-'use client';
+"use client";
 
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
   income: string;
   currency: string;
-  age:string;
+  age: string;
   vitals: string;
   hobbies: string;
   taxes: string;
   other: string;
 }
 
-const currencies = [
-  'USD', 'EUR'
-];
+const currencies = ["USD", "EUR"];
 
 const SimpleForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    income: '',
-    currency: '',
-    age:'',
-    vitals: '',
-    hobbies: '',
-    taxes: '',
-    other: ''
+    income: "",
+    currency: "",
+    age: "",
+    vitals: "",
+    hobbies: "",
+    taxes: "",
+    other: "",
   });
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
 
   const handleCancel = () => {
     setFormData({
-      income: '',
-      currency: '',
-      age:'',
-      vitals: '',
-      hobbies: '',
-      taxes: '',
-      other: ''
+      income: "",
+      currency: "",
+      age: "",
+      vitals: "",
+      hobbies: "",
+      taxes: "",
+      other: "",
     });
     setCurrentStep(1);
   };
@@ -66,7 +66,12 @@ const SimpleForm: React.FC = () => {
   const renderStep1 = () => (
     <>
       <div className="mb-4">
-        <label htmlFor="income" className="block text-gray-700 text-sm font-bold mb-2">Income</label>
+        <label
+          htmlFor="income"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Income
+        </label>
         <input
           type="number"
           id="income"
@@ -76,20 +81,29 @@ const SimpleForm: React.FC = () => {
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
-          <label htmlFor="age" className="py-2 block text-gray-700 text-sm font-bold mb-2">Age</label>
-  <input
-    type="number"
-    id="age"
-    name="age"
-    value={formData.age}
-    onChange={handleChange}
-    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    required
-  />
-
+        <label
+          htmlFor="age"
+          className="py-2 block text-gray-700 text-sm font-bold mb-2"
+        >
+          Age
+        </label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
       </div>
       <div className="mb-6">
-        <label htmlFor="currency" className="block text-gray-700 text-sm font-bold mb-2">Currency</label>
+        <label
+          htmlFor="currency"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Currency
+        </label>
         <select
           id="currency"
           name="currency"
@@ -107,7 +121,7 @@ const SimpleForm: React.FC = () => {
         </select>
       </div>
       <div className="flex justify-between">
-      <button
+        <button
           type="button"
           onClick={handleCancel}
           className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -128,7 +142,12 @@ const SimpleForm: React.FC = () => {
   const renderStep2 = () => (
     <>
       <div className="mb-4">
-        <label htmlFor="vitals" className="block text-gray-700 text-sm font-bold mb-2">Vitals</label>
+        <label
+          htmlFor="vitals"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Vitals
+        </label>
         <input
           type="number"
           id="vitals"
@@ -140,7 +159,12 @@ const SimpleForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="hobbies" className="block text-gray-700 text-sm font-bold mb-2">Hobbies</label>
+        <label
+          htmlFor="hobbies"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Hobbies
+        </label>
         <input
           type="number"
           id="hobbies"
@@ -152,7 +176,12 @@ const SimpleForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="taxes" className="block text-gray-700 text-sm font-bold mb-2">Taxes</label>
+        <label
+          htmlFor="taxes"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Taxes
+        </label>
         <input
           type="number"
           id="taxes"
@@ -164,7 +193,12 @@ const SimpleForm: React.FC = () => {
         />
       </div>
       <div className="mb-6">
-        <label htmlFor="other" className="block text-gray-700 text-sm font-bold mb-2">Other</label>
+        <label
+          htmlFor="other"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Other
+        </label>
         <input
           type="number"
           id="other"
@@ -195,7 +229,10 @@ const SimpleForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md p-6 bg-white rounded-lg shadow-md"
+      >
         <h2 className="text-2xl font-bold mb-6 text-center">
           {currentStep === 1 ? "Information about you :)" : "Expenses"}
         </h2>
