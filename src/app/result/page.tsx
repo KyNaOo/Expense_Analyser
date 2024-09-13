@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import LoadingSpinner from "../../components/loading";
 
-const ResultPage = () => {
-  const [data, setData] = useState(null);
+interface FormData {
+  [key: string]: unknown;
+}
+
+const ResultPage: React.FC = () => {
+  const [data, setData] = useState<FormData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,17 +26,25 @@ const ResultPage = () => {
     fetchData();
   }, []);
 
+  const renderValue = (value: unknown): React.ReactNode => {
+    if (
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "boolean"
+    ) {
+      return String(value);
+    }
+    if (Array.isArray(value)) {
+      return value.join(", ");
+    }
+    if (value === null || value === undefined) {
+      return "N/A";
+    }
+    return JSON.stringify(value);
+  };
+
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-center">
-          <div className="inline-block w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-xl font-semibold text-gray-700">
-            Loading your results...
-          </p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!data) {
@@ -59,7 +72,7 @@ const ResultPage = () => {
                   {key}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {value}
+                  {renderValue(value)}
                 </dd>
               </div>
             ))}
