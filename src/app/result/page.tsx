@@ -13,9 +13,7 @@ const ResultPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Simulate network delay
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
       const storedData = localStorage.getItem("formData");
       if (storedData) {
         setData(JSON.parse(storedData));
@@ -56,27 +54,42 @@ const ResultPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="px-4 py-5 sm:px-6">
-          <h1 className="text-2xl font-bold text-gray-900">Result Page</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="flex gap-6">
+        {/* Left column - Results */}
+        <div className="w-1/3">
+          <div className="bg-white rounded-lg shadow-lg p-6 h-[calc(100vh-3rem)] overflow-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Your Results
+            </h2>
+            <dl className="space-y-4">
+              {Object.entries(data).map(([key, value]) => (
+                <div key={key}>
+                  <dt className="text-sm font-medium text-gray-500 capitalize">
+                    {key}
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900">
+                    {renderValue(value)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
-        <div className="border-t border-gray-200">
-          <dl>
-            {Object.entries(data).map(([key, value]) => (
-              <div
-                key={key}
-                className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 odd:bg-gray-50"
-              >
-                <dt className="text-sm font-medium text-gray-500 capitalize">
-                  {key}
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {renderValue(value)}
-                </dd>
-              </div>
-            ))}
-          </dl>
+
+        {/* Right column - Content area */}
+        <div className="w-2/3">
+          <div className="bg-white rounded-lg shadow-lg p-6 h-[calc(100vh-3rem)] overflow-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Additional Information
+            </h2>
+            <p className="text-gray-700">
+              This is where you can put your random text or any additional
+              content. You have plenty of space here to add more components,
+              text, or any other elements you need.
+            </p>
+            {/* Add more content here as needed */}
+          </div>
         </div>
       </div>
     </div>
