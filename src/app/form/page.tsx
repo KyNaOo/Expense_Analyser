@@ -38,8 +38,12 @@ const SimpleForm: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+
+    // Save formData in localStorage
+    localStorage.setItem("formData", JSON.stringify(formData));
+
+    // Redirect to the result page
+    window.location.href = "/result";
   };
 
   const handleCancel = () => {
