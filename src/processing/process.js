@@ -15,7 +15,7 @@ function estimerRetraiteAvecPensionEtEsperanceDeVie(
   const dureeRetraite = Math.max(esperanceDeVie - ageRetraiteCible, 0); // Assurez-vous que la durée n'est pas négative
 
   // Montant requis par an pour vivre pendant la retraite
-  const montantRequisParAn = 30000;
+  const montantRequisParAn = 25000;
 
   // Montant que l'épargne doit couvrir chaque année après la pension
   const montantRequisApresPension = montantRequisParAn - pensionAnnuelle;

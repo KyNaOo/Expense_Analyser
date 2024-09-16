@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   income: string;
@@ -15,6 +16,7 @@ interface FormData {
 const currencies = ["USD", "EUR"];
 
 const SimpleForm: React.FC = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     income: "",
     currency: "",
@@ -57,6 +59,7 @@ const SimpleForm: React.FC = () => {
       other: "",
     });
     setCurrentStep(1);
+    router.push("/");
   };
 
   const nextStep = () => {
