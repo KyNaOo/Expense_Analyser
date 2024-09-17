@@ -18,3 +18,5 @@ function pourcentage(first, second) {
   const percent = first * 100;
   return percent / second;
 }
+
+export default chart;
