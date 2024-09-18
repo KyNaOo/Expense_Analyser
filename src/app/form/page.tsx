@@ -153,7 +153,7 @@ const SimpleForm: React.FC = () => {
           htmlFor="vitals"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Vitals
+          Essentials
         </label>
         <input
           type="number"

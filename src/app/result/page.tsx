@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import LoadingSpinner from "../../components/loading";
-import chart from "../../processing/chart";
+import { chart } from "../../processing/chart";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -143,15 +143,13 @@ const ResultPage: React.FC = () => {
         <div className="w-2/3 flex flex-col gap-6">
           {/* Top part - Empty for now */}
           <div className="bg-white rounded-lg shadow-lg p-6 h-1/2 overflow-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Future Content
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4"></h2>
             {/* This space is intentionally left empty for future content */}
           </div>
           {/* Bottom part - Random text */}
           <div className="bg-white rounded-lg shadow-lg p-6 h-1/2 overflow-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Additional Information
+              What can you do ?
             </h2>
             <p className="text-gray-700">
               This is where you can put your random text or any additional

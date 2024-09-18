@@ -1,4 +1,4 @@
-function chart(income, vitals, taxes, hobbies, other) {
+export function chart(income, vitals, taxes, hobbies, other) {
   const vitalsCost = pourcentage(vitals, income);
   const taxesCost = pourcentage(taxes, income);
   const hobbiesCost = pourcentage(hobbies, income);
@@ -14,9 +14,7 @@ function chart(income, vitals, taxes, hobbies, other) {
   };
 }
 
-function pourcentage(first, second) {
+export function pourcentage(first, second) {
   const percent = first * 100;
   return percent / second;
 }
-
-export default chart;
