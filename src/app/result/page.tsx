@@ -6,6 +6,10 @@ import { Pie } from "react-chartjs-2";
 import LoadingSpinner from "../../components/loading";
 import { chart } from "../../processing/chart";
 
+// Import the functions from the two files you provided earlier
+import { calculateSavings } from "../../processing/total";
+import { results } from "../../processing/results";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface FormData {
@@ -27,9 +31,25 @@ interface ChartData {
   saved: number;
 }
 
+interface SavingsData {
+  totalSavings: string;
+  savingsPerDecade: string;
+  savingsPerYear: string;
+  savingsPerMonth: string;
+}
+
+interface ResultsData {
+  message: string;
+  problem: string[];
+  solution: string[];
+  top1: string;
+}
+
 const ResultPage: React.FC = () => {
   const [data, setData] = useState<FormData | null>(null);
   const [chartData, setChartData] = useState<ChartData | null>(null);
+  const [savingsData, setSavingsData] = useState<SavingsData | null>(null);
+  const [resultsData, setResultsData] = useState<ResultsData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,14 +60,37 @@ const ResultPage: React.FC = () => {
         const parsedData: FormData = JSON.parse(storedData);
         setData(parsedData);
 
+        const income = parseInt(parsedData.income);
+        const vitals = parseInt(parsedData.vitals);
+        const taxes = parseInt(parsedData.taxes);
+        const hobbies = parseInt(parsedData.hobbies);
+        const other = parseInt(parsedData.other);
+        const age = parseInt(parsedData.age);
+
         const calculatedChartData = chart(
-          parseInt(parsedData.income),
-          parseInt(parsedData.vitals),
-          parseInt(parsedData.taxes),
-          parseInt(parsedData.hobbies),
-          parseInt(parsedData.other)
+          income,
+          vitals,
+          taxes,
+          hobbies,
+          other
         );
         setChartData(calculatedChartData);
+
+        const calculatedSavings = calculateSavings(
+          income,
+          vitals + taxes + hobbies + other,
+          age
+        );
+        setSavingsData(calculatedSavings);
+
+        const calculatedResults = results(
+          income,
+          vitals,
+          taxes,
+          hobbies,
+          other
+        );
+        setResultsData(calculatedResults);
       }
       setLoading(false);
     };
@@ -141,22 +184,55 @@ const ResultPage: React.FC = () => {
         </div>
         {/* Right column - Split into two parts */}
         <div className="w-2/3 flex flex-col gap-6">
-          {/* Top part - Empty for now */}
+          {/* Top part - Results */}
           <div className="bg-white rounded-lg shadow-lg p-6 h-1/2 overflow-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4"></h2>
-            {/* This space is intentionally left empty for future content */}
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Results</h2>
+            {resultsData && (
+              <div>
+                <p className="text-lg font-semibold mb-2">
+                  {resultsData.message}
+                </p>
+                <p className="mb-2">Main expense: {resultsData.top1}</p>
+                {resultsData.problem.length > 0 && (
+                  <div>
+                    <h3 className="text-md font-semibold mt-4 mb-2">
+                      Problems:
+                    </h3>
+                    <ul className="list-disc list-inside">
+                      {resultsData.problem.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {savingsData && (
+                  <div className="mt-4">
+                    <h3 className="text-md font-semibold mb-2">
+                      Savings Projection:
+                    </h3>
+                    <p>Total Savings: {savingsData.totalSavings}</p>
+                    <p>Savings per Decade: {savingsData.savingsPerDecade}</p>
+                    <p>Savings per Year: {savingsData.savingsPerYear}</p>
+                    <p>Savings per Month: {savingsData.savingsPerMonth}</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          {/* Bottom part - Random text */}
+          {/* Bottom part - What can you do? */}
           <div className="bg-white rounded-lg shadow-lg p-6 h-1/2 overflow-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              What can you do ?
+              What can you do?
             </h2>
-            <p className="text-gray-700">
-              This is where you can put your random text or any additional
-              content. You have plenty of space here to add more components,
-              text, or any other elements you need.
-            </p>
-            {/* Add more content here as needed */}
+            {resultsData && resultsData.solution.length > 0 && (
+              <ul className="list-disc list-inside">
+                {resultsData.solution.map((item, index) => (
+                  <li key={index} className="text-gray-700 mb-2">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

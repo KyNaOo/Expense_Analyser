@@ -17,20 +17,35 @@ function results(income, vitals, taxes, hobbies, other) {
 
   if (saved < -10) {
     message = "You will be broke at this rate";
+    solution.push(
+      "Find some help because it's critical, either you find a better job or lower your expense"
+    );
   } else if (saved < 0) {
     message = "You are in the negative";
+    solution.push(
+      "Check your expenses one by one and try to find a way to reduce them"
+    );
   } else if (saved === 0) {
     message = "It's too risky";
+    solution.push("Try to save a little bit more next month");
   } else if (saved < 20) {
     message = "That's great, you are saving some money";
+    solution.push("Try to invest that saved money");
+    solution.push(
+      "Or try to expense a little more but for your health, for example food quality"
+    );
   } else {
     message = "You are saving a good amount";
+    solution.push("Try to invest that saved money");
+    solution.push(
+      "Or try to expense a little more but for your health, for example food quality"
+    );
   }
 
   if (vitalsCost > 60) {
     problem.push("Your essential expenses are too high");
     solution.push(
-      "Reconsider what is really essential to you. If you smoke or drink, try to stop—it, your health and wallet are very important !"
+      "Reconsider what is really essential to you. If you smoke or drink, try to stop—it's for your health and your wallet."
     );
   }
 
@@ -48,13 +63,15 @@ function results(income, vitals, taxes, hobbies, other) {
     );
   }
 
-  if (vitalsCost > hobbiesCost && vitalsCost > otherCost) {
-    top1 = "The main expense is essentials";
-  } else if (hobbiesCost > vitalsCost && hobbiesCost > otherCost) {
-    top1 = "The main expense is hobbies";
-  } else if (otherCost > vitalsCost && otherCost > hobbiesCost) {
-    top1 = "The main expense is miscellaneous";
-  }
+  // Determine the main expense(s)
+  const maxCost = Math.max(vitalsCost, hobbiesCost, otherCost);
+  let topExpenses = [];
+
+  if (vitalsCost === maxCost) topExpenses.push("essentials");
+  if (hobbiesCost === maxCost) topExpenses.push("hobbies");
+  if (otherCost === maxCost) topExpenses.push("miscellaneous");
+
+  top1 = `${topExpenses.join(", ")}`;
 
   return {
     message: message,
@@ -66,6 +83,3 @@ function results(income, vitals, taxes, hobbies, other) {
 
 // Export the function using CommonJS syntax
 module.exports = { results };
-
-// Test the function
-console.log(results(1000, 1000, 1, 1800, 101));

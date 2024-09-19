@@ -1,4 +1,4 @@
-function calculateSavings(income, expense, age) {
+export function calculateSavings(income, expense, age) {
   const lifeExpectancy = 82;
   const monthsInYear = 12;
   const yearsInDecade = 10;
@@ -26,6 +26,3 @@ function calculateSavings(income, expense, age) {
   };
 }
 
-// Example usage:
-const result = calculateSavings(2000, 2500, 30);
-console.log(result);
