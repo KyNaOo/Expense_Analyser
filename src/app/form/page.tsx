@@ -2,6 +2,7 @@
 
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import AnimatedBackground from "../../components/animatedBackground";
 
 interface FormData {
   income: string;
@@ -40,11 +41,7 @@ const SimpleForm: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Save formData in localStorage
     localStorage.setItem("formData", JSON.stringify(formData));
-
-    // Redirect to the result page
     window.location.href = "/result";
   };
 
@@ -62,13 +59,8 @@ const SimpleForm: React.FC = () => {
     router.push("/");
   };
 
-  const nextStep = () => {
-    setCurrentStep(2);
-  };
-
-  const prevStep = () => {
-    setCurrentStep(1);
-  };
+  const nextStep = () => setCurrentStep(2);
+  const prevStep = () => setCurrentStep(1);
 
   const renderStep1 = () => (
     <>
@@ -148,74 +140,25 @@ const SimpleForm: React.FC = () => {
 
   const renderStep2 = () => (
     <>
-      <div className="mb-4">
-        <label
-          htmlFor="vitals"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Essentials
-        </label>
-        <input
-          type="number"
-          id="vitals"
-          name="vitals"
-          value={formData.vitals}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="hobbies"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Hobbies
-        </label>
-        <input
-          type="number"
-          id="hobbies"
-          name="hobbies"
-          value={formData.hobbies}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="taxes"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Taxes
-        </label>
-        <input
-          type="number"
-          id="taxes"
-          name="taxes"
-          value={formData.taxes}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
-      <div className="mb-6">
-        <label
-          htmlFor="other"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Other
-        </label>
-        <input
-          type="number"
-          id="other"
-          name="other"
-          value={formData.other}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-      </div>
+      {["vitals", "hobbies", "taxes", "other"].map((field) => (
+        <div key={field} className="mb-4">
+          <label
+            htmlFor={field}
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            {field.charAt(0).toUpperCase() + field.slice(1)}
+          </label>
+          <input
+            type="number"
+            id={field}
+            name={field}
+            value={formData[field as keyof FormData]}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+      ))}
       <div className="flex justify-between">
         <button
           type="button"
@@ -235,17 +178,19 @@ const SimpleForm: React.FC = () => {
   );
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md p-6 bg-white rounded-lg shadow-md"
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {currentStep === 1 ? "Information about you :)" : "Expenses"}
-        </h2>
-        {currentStep === 1 ? renderStep1() : renderStep2()}
-      </form>
-    </div>
+    <AnimatedBackground>
+      <div className="flex items-center justify-center min-h-screen">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md p-6 bg-white bg-opacity-90 rounded-lg shadow-md"
+        >
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            {currentStep === 1 ? "Information about you :)" : "Expenses"}
+          </h2>
+          {currentStep === 1 ? renderStep1() : renderStep2()}
+        </form>
+      </div>
+    </AnimatedBackground>
   );
 };
 

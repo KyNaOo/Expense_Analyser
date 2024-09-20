@@ -45,7 +45,7 @@ function results(income, vitals, taxes, hobbies, other) {
   if (vitalsCost > 60) {
     problem.push("Your essential expenses are too high");
     solution.push(
-      "Reconsider what is really essential to you. If you smoke or drink, try to stop—it's for your health and your wallet."
+      "Reconsider what is really essential to you. If you smoke or drink, try to stop it. It's for your health and your wallet."
     );
   }
 
@@ -59,7 +59,7 @@ function results(income, vitals, taxes, hobbies, other) {
   if (otherCost > 10) {
     problem.push("Your miscellaneous expenses are too high");
     solution.push(
-      "Your miscellaneous expenses are questionable; try to reduce them."
+      "Your miscellaneous expenses are questionable, try to reduce them."
     );
   }
 
