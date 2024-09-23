@@ -42,7 +42,7 @@ const SimpleForm: React.FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.setItem("formData", JSON.stringify(formData));
-    window.location.href = "/result";
+    router.push("/result");
   };
 
   const handleCancel = () => {
