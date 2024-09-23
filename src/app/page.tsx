@@ -18,7 +18,7 @@ const HomePage = () => {
           Welcome to my Expense Analyzer website
         </h1>
         <p className="text-xl text-gray-700 mb-8">
-          Let's dive into your wallet!
+          Let&apos;s dive into your wallet!
         </p>
         <button
           onClick={handleGetStarted}
